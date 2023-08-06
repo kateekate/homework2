@@ -42,3 +42,20 @@ function makeObjectDeepCopy(sourceObj) {
 
   return sourceObj;
 }
+
+// Task 2
+
+function selectFromInterval(arr, start, end) {
+  const isValid = typeof start === 'number' && typeof end === 'number';
+
+  if (!Array.isArray(arr) || !isValid) {
+    throw new Error('Error!');
+  }
+
+  if (start > end) {
+    return arr.filter((num) => num <= start && num >= end);
+  } else if (start < end) {
+    return arr.filter((num) => num <= end && num >= start);
+  }
+
+}
