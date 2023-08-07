@@ -46,16 +46,42 @@ function makeObjectDeepCopy(sourceObj) {
 // Task 2
 
 function selectFromInterval(arr, start, end) {
-  const isValid = typeof start === 'number' && typeof end === 'number';
+  const validNumber = (num) => typeof num === 'number' && isNaN(num);
+  const isValidRange = validNumber(start) && validNumber(end);
+  const isValidArray = Array.isArray(arr) && arr.every(validNumber);
 
-  if (!Array.isArray(arr) || !isValid) {
-    throw new Error('Error!');
+  if (!isValidRange || !isValidArray) {
+    throw new Error('Ошибка!');
   }
 
   if (start > end) {
     return arr.filter((num) => num <= start && num >= end);
-  } else if (start < end) {
+  } else {
     return arr.filter((num) => num <= end && num >= start);
   }
-
 }
+
+// Task 3
+
+function createNumberList(obj) {
+  const { from, to } = obj;
+  const validNumber = (num) => typeof num === 'number' && !isNaN(num);
+  const isValid = validNumber(from) && validNumber(to);
+
+  if (from > to || !isValid) {
+    throw new Error('Ошибка!');
+  }
+
+  const res = [];
+  for (let i = from; i <= to; i++) {
+    res.push(i);
+  }
+  return res.join(', ');
+}
+
+const myIterable = {
+  from: 2,
+  to: 9,
+}
+
+createNumberList(myIterable);
