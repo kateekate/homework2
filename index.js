@@ -54,7 +54,6 @@ myIterable[Symbol.iterator] = function() {
     start: this.from,
     end: this.to,
     next() {
-
       if (this.start <= this.end) {
         return { done: false, value: this.start++ };
       } else {
