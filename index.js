@@ -41,7 +41,7 @@ const myIterable = {
   to: 9,
 };
 
-myIterable[Symbol.iterator] = function() {
+myIterable[Symbol.iterator] = function () {
 
   if (typeof this.from !== 'number' || typeof this.to !== 'number') {
     throw new Error('Ошибка!');
@@ -55,11 +55,13 @@ myIterable[Symbol.iterator] = function() {
     start: this.from,
     end: this.to,
     next() {
+
       if (this.start <= this.end) {
         return { done: false, value: this.start++ };
       } else {
         return { done: true };
       }
+      
     }
   }
 }
