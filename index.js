@@ -36,25 +36,30 @@ function selectFromInterval(arr, start, end) {
 
 // Task 3
 
-function createNumberList(obj) {
-  const { from, to } = obj;
-  const validNumber = (num) => typeof num === 'number' && !isNaN(num);
-  const isValid = validNumber(from) && validNumber(to);
-
-  if (from > to || !isValid) {
-    throw new Error('Ошибка!');
-  }
-
-  const res = [];
-  for (let i = from; i <= to; i++) {
-    res.push(i);
-  }
-  return res.join(', ');
-}
-
 const myIterable = {
   from: 2,
   to: 9,
-}
+};
 
-createNumberList(myIterable);
+myIterable[Symbol.iterator] = function () {
+
+  if (typeof this.from !== 'number' || typeof this.to !== 'number') {
+    throw new Error('Ошибка!');
+  };
+
+  if (this.to < this.from) {
+    throw new Error('Ошибка!');
+  };
+
+  return {
+    start: this.from,
+    end: this.to,
+    next() {
+      if (this.start <= this.end) {
+        return { done: false, value: this.start++ };
+      } else {
+        return { done: true };
+      }
+    }
+  }
+}
