@@ -19,7 +19,7 @@ function makeObjectDeepCopy(sourceObj) {
 // Task 2
 
 function selectFromInterval(arr, start, end) {
-  const validNumber = (num) => typeof num === 'number' && isNaN(num);
+  const validNumber = (num) => typeof num === 'number' && !isNaN(num);
   const isValidRange = validNumber(start) && validNumber(end);
   const isValidArray = Array.isArray(arr) && arr.every(validNumber);
 
@@ -42,11 +42,10 @@ const myIterable = {
 };
 
 myIterable[Symbol.iterator] = function() {
-  if (typeof this.from !== 'number' || typeof this.to !== 'number') {
-    throw new Error('Ошибка!');
-  };
-
-  if (this.to < this.from) {
+  const validNumber = (num) => typeof num === 'number' && !isNaN(num);
+  const isValid = validNumber(this.from) && validNumber(this.to);
+  
+  if (!isValid || this.to < this.from) {
     throw new Error('Ошибка!');
   };
 
