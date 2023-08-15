@@ -47,7 +47,7 @@ myIterable[Symbol.iterator] = function() {
   
   if (!isValid || this.to < this.from) {
     throw new Error('Ошибка!');
-  };
+  }
 
   return {
     start: this.from,
